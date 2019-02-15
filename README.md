@@ -16,4 +16,10 @@ Dataset with 7 columns , 'Time' Column is removed from [2]
 Manipulated dataset with 7 columns, 'Heat Sink Temp' is replaced with custom values
 
 ### 5.igbt_heatsink_removed
-dataset with 6 columns, 'Heat Sink Temp' is removed from [3]
+Dataset with 6 columns, 'Heat Sink Temp' is removed from [3]
+
+### 6.igbt_noise_removed
+Dataset with 7 columns, taken from [3] , and removed abnormal readings as well as readings after failure occured
+
+### 7.igbt_noise_removed_normalised
+Dataset with 7 columns , taken from [6] , each column is normalised using the maximum value in that column
