@@ -1,5 +1,6 @@
 import numpy
 import pandas
+from math import sqrt
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.wrappers.scikit_learn import KerasRegressor
@@ -24,7 +25,7 @@ def baseline_model():
 	model.add(Dense(6, input_dim=6, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(1, kernel_initializer='normal'))
 	# Compile model
-	model.compile(loss='mean_squared_error', optimizer='RMSProp')
+	model.compile(loss='mean_absolute_error', optimizer='adamax')
 	return model
 
 # define the model
@@ -32,12 +33,12 @@ def larger_model():
 	# create model
 	model = Sequential()
 	model.add(Dense(6, input_dim=6, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(5, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(5, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(4, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(4, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(3, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(1, kernel_initializer='normal',activation='softmax'))
+	model.add(Dense(5, kernel_initializer='normal',activation='relu')) #new
+	model.add(Dense(4, kernel_initializer='normal',activation='relu')) #new
+	model.add(Dense(4, kernel_initializer='normal',activation='relu')) #new
+	model.add(Dense(4, kernel_initializer='normal',activation='relu')) #new
+	model.add(Dense(3, kernel_initializer='normal',activation='relu'))
+	model.add(Dense(1, kernel_initializer='normal',activation='softmax' ))
 	# Compile model
 	model.compile(loss='mean_squared_error', optimizer='adam')
 	return model
@@ -53,7 +54,7 @@ def wider_model():
 	return model
 
 # fix random seed for reproducibility
-seed = 8 # was 7
+seed = 8  # was 7
 numpy.random.seed(seed)
 
 # evaluate model with standardized dataset
@@ -67,7 +68,7 @@ pipeline = Pipeline(estimators)
 print("[+] Training Ended ...")
 
 # 10-fold cross validation to evaluate the model
-kfold = KFold(n_splits=10, random_state=seed)
+kfold = KFold(n_splits=2, random_state=seed)
 
 print("[>] Cross-Validation Started ...")
 #results = cross_val_score(estimator, X, Y, cv=kfold)
@@ -75,4 +76,5 @@ results = cross_val_score(pipeline, X, Y, cv=kfold)
 print("[+] Cross-Validation Ended ...")
 
 
-print("\n Standardized: %.2f (%.2f) RMSE" % (results.mean(), results.std()))
+print("\n Standardized: %.2f (%.2f) MSE\n" % (results.mean(),results.std()))
+print(sqrt(results.mean()))
