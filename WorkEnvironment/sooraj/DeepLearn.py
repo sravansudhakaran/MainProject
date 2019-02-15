@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 
 # load dataset
 print("[>] Loading Dataset ...")
-dataframe = pandas.read_csv("igbt_norm.csv",dtype='float64', header=0)
+dataframe = pandas.read_csv("igbt_noise_removed.csv",dtype='float64', header=0)
 dataset = dataframe.values
 # split into input (X) and output (Y) variables
 X = dataset[:,0:6]
@@ -37,9 +37,9 @@ def larger_model():
 	model.add(Dense(4, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(4, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(3, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(1, kernel_initializer='normal',activation='softmax'))
+	model.add(Dense(1, kernel_initializer='normal'))
 	# Compile model
-	model.compile(loss='mean_squared_error', optimizer='adam')
+	model.compile(loss='mean_absolute_error', optimizer='rmsprop')
 	return model
 
 # define wider model
@@ -53,7 +53,7 @@ def wider_model():
 	return model
 
 # fix random seed for reproducibility
-seed = 8 # was 7
+seed = 7
 numpy.random.seed(seed)
 
 # evaluate model with standardized dataset
@@ -75,4 +75,4 @@ results = cross_val_score(pipeline, X, Y, cv=kfold)
 print("[+] Cross-Validation Ended ...")
 
 
-print("\n Standardized: %.2f (%.2f) RMSE" % (results.mean(), results.std()))
+print("\n Standardized: %.2f (%.2f) MSE" % (results.mean(), results.std()))
