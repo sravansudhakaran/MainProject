@@ -1,3 +1,5 @@
+# RMSE at 0.14 with SD 0.07
+
 import numpy
 import pandas
 from keras.models import Sequential
