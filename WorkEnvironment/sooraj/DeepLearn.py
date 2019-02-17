@@ -35,11 +35,13 @@ def root_mean_squared_error(y_true, y_pred):
 def larger_model():
 	# create model
 	model = Sequential()
-	model.add(Dense(6, input_dim=6, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(5, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(4, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(3, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(2, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(60, input_dim=6, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(50, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(40, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(30, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(20, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(10, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(5,  kernel_initializer='normal', activation='relu'))
 	model.add(Dense(1, kernel_initializer='normal'))
 	# Compile model
 	model.compile(loss=root_mean_squared_error, optimizer='adamax')
