@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('dataset.csv')
+dataset = pd.read_csv('igbt_noise_removed_normalised.csv')
 X = dataset.iloc[:, 1:7].values
 y = dataset.iloc[:, 0].values
 
@@ -48,7 +48,7 @@ y_pred = regressor.predict(X_test)
 #plt.ylabel('Time')
 #plt.show()
 
-# Visualising the Test set results
+## Visualising the Test set results
 #plt.scatter(X_test, y_test, color = 'red')
 #plt.plot(X_train, regressor.predict(X_train), color = 'blue')
 #plt.title('Time vs Features(Test set)')
@@ -61,9 +61,9 @@ y_pred = regressor.predict(X_test)
 from sklearn.model_selection import cross_val_score
 #reg = linear_model.LinearRegression()
 cv_results = cross_val_score(regressor,X,y, cv=2)
-
+print(cv_results)
 
 
 import statsmodels.formula.api as sm
-X = np.append( arr= np.ones((301680,1)).astype (int), values= X , axis=1)
+X = np.append( arr= np.ones((301569,1)).astype (int), values= X , axis=1)
 
