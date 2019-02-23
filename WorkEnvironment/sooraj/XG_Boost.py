@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
-from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, cross_val_predict, KFold
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import Pipeline
-
+import xgboost as xgb
 # load dataset
 
 print("[>] Loading Dataset ...")
@@ -46,7 +45,7 @@ def model(pipeline, parameters, X_train, y_train, X, y):
     '''
     
     shuffle = KFold(n_splits=5,shuffle=True,random_state=0)
-    cv_scores = cross_val_score(estimator,X,y.ravel(),cv=10,scoring='neg_mean_squared_error')
+    cv_scores = cross_val_score(estimator,X,y.ravel(),cv=10,scoring='neg_mean_squared_error',verbose=2)
     print("[+] Cross Validation Results")
     print("Mean: ", np.sqrt(np.abs(cv_scores.mean())),".. Std Deviaiton: ",np.sqrt(np.abs(cv_scores.std())))
 
@@ -67,16 +66,11 @@ def model(pipeline, parameters, X_train, y_train, X, y):
 
     y_pred = cross_val_predict(estimator, X, y, cv=shuffle)
 
-# Pipeline and Parameters - MultiLayer Perceptron
+# Pipeline and Parameters - XGBoost
 print("[>] Creating Pipeline ...")
 
-pipe_neural = Pipeline([('scl', StandardScaler()),('clf', MLPRegressor())])
-
-param_neural = {'clf__alpha': [0.001, 0.01, 0.1, 1, 10, 100],
-                'clf__hidden_layer_sizes': [(5),(10,10),(7,7,7)],
-                'clf__solver': ['lbfgs'],
-                'clf__activation': ['relu', 'tanh'],
-                'clf__learning_rate' : ['constant', 'invscaling']}
+pipe_xgb = Pipeline([('clf', xgb.XGBRegressor())])
+param_xgb = {'clf__max_depth':[5],'clf__min_child_weight':[6],'clf__gamma':[0.01],'clf__subsample':[0.7],'clf__colsample_bytree':[1]}
 
 print("[+] Pipeline Created ...")
 
@@ -88,7 +82,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 # Execute model hyperparameter tuning and crossvalidation
 print("[>] Training Started ...")
 
-model(pipe_neural, param_neural, X_train, y_train, X, y)
+model(pipe_xgb, param_xgb, X_train, y_train, X, y)
 
 print("[+] Training Completed ...")
-

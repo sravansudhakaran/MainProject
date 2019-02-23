@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.neural_network import MLPRegressor
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, cross_val_predict, KFold
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import Pipeline
@@ -46,7 +46,7 @@ def model(pipeline, parameters, X_train, y_train, X, y):
     '''
     
     shuffle = KFold(n_splits=5,shuffle=True,random_state=0)
-    cv_scores = cross_val_score(estimator,X,y.ravel(),cv=10,scoring='neg_mean_squared_error')
+    cv_scores = cross_val_score(estimator,X,y.ravel(),cv=10,scoring='neg_mean_squared_error',verbose=2)
     print("[+] Cross Validation Results")
     print("Mean: ", np.sqrt(np.abs(cv_scores.mean())),".. Std Deviaiton: ",np.sqrt(np.abs(cv_scores.std())))
 
@@ -67,16 +67,11 @@ def model(pipeline, parameters, X_train, y_train, X, y):
 
     y_pred = cross_val_predict(estimator, X, y, cv=shuffle)
 
-# Pipeline and Parameters - MultiLayer Perceptron
+# Pipeline and Parameters - k-Nearest Neighbour
 print("[>] Creating Pipeline ...")
 
-pipe_neural = Pipeline([('scl', StandardScaler()),('clf', MLPRegressor())])
-
-param_neural = {'clf__alpha': [0.001, 0.01, 0.1, 1, 10, 100],
-                'clf__hidden_layer_sizes': [(5),(10,10),(7,7,7)],
-                'clf__solver': ['lbfgs'],
-                'clf__activation': ['relu', 'tanh'],
-                'clf__learning_rate' : ['constant', 'invscaling']}
+pipe_knn = Pipeline([('clf', KNeighborsRegressor())])
+param_knn = {'clf__n_neighbors':[5, 10, 15, 25, 30]}
 
 print("[+] Pipeline Created ...")
 
@@ -88,7 +83,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_
 # Execute model hyperparameter tuning and crossvalidation
 print("[>] Training Started ...")
 
-model(pipe_neural, param_neural, X_train, y_train, X, y)
+model(pipe_knn, param_knn, X_train, y_train, X, y)
 
 print("[+] Training Completed ...")
-
