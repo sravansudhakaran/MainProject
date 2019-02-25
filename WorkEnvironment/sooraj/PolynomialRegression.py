@@ -71,7 +71,7 @@ def model(pipeline, parameters, X_train, y_train, X, y):
 print("[>] Creating Pipeline ...")
 
 pipe_poly = Pipeline([('scl', StandardScaler()),('polynomial', PolynomialFeatures()),('clf', LinearRegression())])
-param_poly = {'polynomial__degree': [2, 4, 6]}
+param_poly = {'polynomial__degree': [2, 4]}
 
 print("[+] Pipeline Created ...")
 

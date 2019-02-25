@@ -72,10 +72,10 @@ print("[>] Creating Pipeline ...")
 
 pipe_neural = Pipeline([('scl', StandardScaler()),('clf', MLPRegressor())])
 
-param_neural = {'clf__alpha': [0.001, 0.01, 0.1, 1, 10, 100],
-                'clf__hidden_layer_sizes': [(5),(10,10),(7,7,7)],
+param_neural = {'clf__alpha': [0.001, 0.01, 0.1],
+                'clf__hidden_layer_sizes': [(10,10),(7,7,7)],
                 'clf__solver': ['lbfgs'],
-                'clf__activation': ['relu', 'tanh'],
+                'clf__activation': ['relu'],
                 'clf__learning_rate' : ['constant', 'invscaling']}
 
 print("[+] Pipeline Created ...")
