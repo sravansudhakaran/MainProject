@@ -6,19 +6,22 @@ from keras import backend
 from keras.models import load_model
 import os
 import Sensor_controller
+import math
 
 def get_params():
 	
 	vce,vbe = Sensor_controller.get_vce_vbe()
 	ambient_temp = Sensor_controller.get_temp()
 	
-	vce = float(row[0])
-	vbe = float(row[1])
+	vcc = 12.0
+	vbb = 5.0
+	rc = 100.0
+	rb = 100.0
+	thermal_res = 420.0
 	ic = (vcc-vce) /rc
 	ib = (vbb-vbe) /rb
 	beta = ic / ib
 	alpha = beta / (1+beta)
-	ambient_temp = math.exp(3.367+(.000001851674337 * t))
 	power_diss = 0.100
 	junction_temp = ambient_temp + ( thermal_res * power_diss )
 	
