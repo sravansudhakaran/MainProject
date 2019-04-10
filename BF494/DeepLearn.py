@@ -34,14 +34,19 @@ def root_mean_squared_error(y_true, y_pred):
 # define the model
 def larger_model():
 	# create model
+	# Standardized: -0.03 (0.08) RMSE
 	model = Sequential()
-	model.add(Dense(60, input_dim=8, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(120, input_dim=8, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(100, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(90, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(80, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(70, kernel_initializer='normal', activation='relu'))
+	model.add(Dense(60, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(50, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(40, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(30, kernel_initializer='normal', activation='relu'))
 	model.add(Dense(20, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(10, kernel_initializer='normal', activation='relu'))
-	model.add(Dense(5,  kernel_initializer='normal', activation='relu'))
+	model.add(Dense(10,  kernel_initializer='normal', activation='relu'))
 	model.add(Dense(1, kernel_initializer='normal'))
 	# Compile model
 	model.compile(loss=root_mean_squared_error, optimizer='adamax')
@@ -67,7 +72,7 @@ print("[>] Training Started ...")
 #estimator = KerasRegressor(build_fn=baseline_model, epochs=1, batch_size=5, verbose=1)
 estimators = []
 estimators.append(('standardize', StandardScaler()))
-estimators.append(('mlp', KerasRegressor(build_fn=larger_model, epochs=1, batch_size=5, verbose=1)))
+estimators.append(('mlp', KerasRegressor(build_fn=larger_model, epochs=5, batch_size=5, verbose=1)))
 pipeline = Pipeline(estimators)
 print("[+] Training Ended ...")
 
