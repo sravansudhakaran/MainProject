@@ -1,10 +1,10 @@
 import RPi.GPIO as GPIO
 import time
 import os
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
 
 def get_values():
+	GPIO.setmode(GPIO.BCM)
+	GPIO.setwarnings(False)
     #Digital input pins from ADC0808
     binarys = (35,29,33,31,40,38,36,32)
     #Initialy set to zero value
@@ -12,8 +12,6 @@ def get_values():
     for binary in binarys:
         GPIO.setup(binary, GPIO.IN) #All Digital pins are input pins
 
-    #Clock pin
-    GPIO.setup(22, GPIO.OUT)
     #Select pin Select Pin LSB
     GPIO.setup(24, GPIO.OUT)
     #Select pin Select Pin MSB
