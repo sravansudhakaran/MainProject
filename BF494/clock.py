@@ -1,16 +1,20 @@
 import RPi.GPIO as GPIO
 import time
-def clock_ale_soc():
-	GPIO.setmode(GPIO.BCM)
-	GPIO.setup(4,GPIO.ALT0)
-	GPIO.setup(18,GPIO.OUT)
-	GPIO.setclock(4,500000)
-	GPIO.output(4,1)
-	while 1:
-		GPIO.output(18,GPIO.HIGH)
-		time.sleep(0.3)
-		GPIO.output(18,GPIO.LOW)
-		time.sleep(1)
-	return
+def clock_gen():
+	try:
+		GPIO.setmode(GPIO.BOARD)
+		GPIO.setup(7,GPIO.OUT)
+		print("[+] Clock is running !")
+		while 1:
+			GPIO.output(7,GPIO.HIGH)
+			time.sleep(0.000001)
+		
+			GPIO.output(7,GPIO.LOW)
+			time.sleep(0.000001)
+		return
 
-clock_ale_soc()
+	except KeyboardInterrupt:
+        	print ('Interrupted')
+       		GPIO.cleanup()
+
+clock_gen()

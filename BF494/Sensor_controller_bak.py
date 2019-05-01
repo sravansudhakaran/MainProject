@@ -19,39 +19,35 @@ def get_values():
     #Select pin Select Pin LSB
     GPIO.setup(16, GPIO.OUT)
     GPIO.setup(18, GPIO.OUT)
-    
-    time.sleep(0.1)
+
     decimal_vce = 0
     decimal_vbe = 0
     decimal_temp = 0
 
-    #GPIO.output(12,GPIO.HIGH)
+    # GPIO.output(12,GPIO.HIGH)
     #Calculating Temp
-    GPIO.output(16,GPIO.LOW)
-    GPIO.output(18,GPIO.LOW)
+    # GPIO.output(16,GPIO.LOW)
+    # GPIO.output(18,GPIO.LOW)
     #Set values of input pins high or low
-    GPIO.output(12,GPIO.HIGH) # Test
-    for i in range(0,8):
-        if(GPIO.input(binarys[i]) == True):
-            bits[i] = 1
-        if(GPIO.input(binarys[i]) == False):
-            bits[i] = 0
+    #GPIO.output(12,GPIO.HIGH) # Test
+    # for i in range(0,8):
+        # if(GPIO.input(binarys[i]) == True):
+            # bits[i] = 1
+        # if(GPIO.input(binarys[i]) == False):
+            # bits[i] = 0
     #Calculating decimal value of input
-    for i in range(0,8):
-        decimal_temp = decimal_temp + (bits[i] * (2**(i)))
-    raw_temp = decimal_temp
-    vce = raw_temp * 0.019607843 #######################################################
-    decimal_temp = (decimal_temp /256) *500
-    GPIO.output(12,GPIO.LOW) #test
+    # for i in range(0,8):
+        # decimal_temp = decimal_temp + (bits[i] * (2**(i)))
+    # raw_temp = decimal_temp
+    # decimal_temp = (decimal_temp /1024) *500
+    # GPIO.output(12,GPIO.LOW) #test
 
-    time.sleep(0.1)
-    bits = [0,0,0,0,0,0,0,0]
     #Calculating Vbe
-    #GPIO.output(12,GPIO.HIGH)
+    GPIO.output(12,GPIO.HIGH)
     GPIO.output(16,GPIO.HIGH)
     GPIO.output(18,GPIO.LOW)
     #Set values of input pins high or low
-    GPIO.output(12,GPIO.HIGH) #test
+    #GPIO.output(12,GPIO.HIGH) #test
     for i in range(0,8):
         if(GPIO.input(binarys[i]) == True):
             bits[i] = 1
@@ -61,19 +57,15 @@ def get_values():
     for i in range(0,8):
         decimal_vbe = decimal_vbe + (bits[i] * (2**(i)))
     raw_vbe = decimal_vbe
-    temp = (raw_vbe / 256) * 500 #######################################################
     decimal_vbe = decimal_vbe * 0.019607843
     GPIO.output(12,GPIO.LOW) #test
 
-    time.sleep(0.1)
-    bits = [0,0,0,0,0,0,0,0]
     #Calculating Vce
-    #GPIO.output(12,GPIO.HIGH)
+    GPIO.output(12,GPIO.HIGH)
     GPIO.output(16,GPIO.LOW)
     GPIO.output(18,GPIO.HIGH)
     #Set values of input pins high or low
-    GPIO.output(12,GPIO.HIGH) #test
-    # time.sleep(0.000001)
+    #GPIO.output(12,GPIO.HIGH) #test
     for i in range(0,8):
         if(GPIO.input(binarys[i]) == True):
             bits[i] = 1
@@ -83,17 +75,11 @@ def get_values():
     for i in range(0,8):
         decimal_vce = decimal_vce + (bits[i] * (2**(i)))
     raw_vce = decimal_vce
-    vbe = raw_vce * 0.019607843 ##################################################
-    decimal_vce = decimal_vce * 0.019607843 #* 2.4 	# Scaling back to cancel out the potential divider effect on Vce
+    decimal_vce = decimal_vce * 0.019607843* 2.4 	# Scaling back to cancel out the potential divider effect on Vce
     GPIO.output(12,GPIO.LOW) #test
 
     GPIO.cleanup()
-    print(bits)
-    print(raw_vce,raw_vbe,raw_temp)
-    #print(raw_vbe)
-    #print(raw_vce)
-
-    #print(vce,vbe,temp)
-    return (vce,vbe,temp)
+    print(raw_vce,raw_vbe) #raw_temp)
+    return (decimal_vce,decimal_vbe,decimal_temp)
 
 print(get_values())
