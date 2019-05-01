@@ -13,12 +13,15 @@ import time
 def get_params():
 	
 	vce,vbe,ambient_temp = Sensor_controller.get_values()
+	vce = vce / 12.2566
+	vbe = vbe / 1.0109
+	ambient_temp = ambient_temp / 50.684
 	os.system('clear')
 	print('[+] Sensor Readings Obtained ...')
 	time.sleep(1)
 	print('[+] Vbe = ' + str(vbe))
 	print('[+] Vce = ' + str(vce))
-	print('[+] Ambient Temperature = ' + str(ambient_temp))	
+	print('[+] Ambient Temperature = ' + str(ambient_temp))
 	time.sleep(1)
 	print('[+] Calculating Additional Parameters ...')
 	vcc = 12.0

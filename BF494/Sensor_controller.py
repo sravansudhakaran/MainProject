@@ -62,7 +62,7 @@ def get_values():
     for i in range(8):
         decimal_vce = decimal_vce + (bits[i] * (2**(7-i)))
     print("6")
-
+    decimal_vce = decimal_vce * 2.4 	# Scaling back to cancel out the potential divider effect on Vce
     return (decimal_vce,decimal_vbe,decimal_temp)
 
 print(get_values())
