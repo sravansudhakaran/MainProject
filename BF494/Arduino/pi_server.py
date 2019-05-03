@@ -21,4 +21,4 @@ def get_data():
 
 	return (vce_array,vbe_array,temp_array)
 
-print(get_data())
+#print(get_data())
