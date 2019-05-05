@@ -9,7 +9,6 @@ import pi_server
 import math
 import time
 
-
 def get_params():
 	print("[+] Connecting with Sensors ...")
 	vce,vbe,ambient_temp = pi_server.get_data()
@@ -55,7 +54,7 @@ def get_params():
 	print('[+] All Parameters Normalised...')
 
 	sensor_values = [vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp]
-	print('[+] Additional Parameters ... \n',sensor_values)
+	# print('[+] Additional Parameters ... \n',sensor_values)
 	return sensor_values
 
 def root_mean_squared_error(y_true, y_pred):
@@ -66,9 +65,16 @@ def predict_rul():
 	time.sleep(1)
 	model = load_model('BF494.hdf5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")
-	X = np.array([get_params()])
-	Y = model.predict(X)
-	os.system('clear')
-	print('Remaining Useful Life = ' + str(Y))
+	rul = [0,0,0,0,0,0,0,0]
+	[vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp] = get_params()
+	samples = []
+	for i in range(0,8):
+		samples.append([vce[i],vbe[i],ic[i],ib[i],beta[i],alpha[i],ambient_temp[i],junction_temp[i]])
+	for i in range(0,8):
+		X = np.array([samples[i]])
+		Y = model.predict(X)
+		rul[i] = Y.tolist()[0][0]
+	return (rul)
 
-predict_rul()
+rul = predict_rul()
+print('Remaining Useful Life = ', rul)
