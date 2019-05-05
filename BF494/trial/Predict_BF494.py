@@ -91,4 +91,4 @@ def predict_rul():
 		rul_avg = rul_avg / count
 	return (vce_max,vce_min,vbe_max,vbe_min,temp_max,rul_avg*100)
 
-print(predict_rul())
+#print(predict_rul())

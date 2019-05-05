@@ -21,7 +21,6 @@ class firstWindow(object):
         componentsDescription = StringVar()
         componentstext =Label(win,bd=1,textvariable=componentsDescription,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=400)
 
-
         def componentselected():
             if var1.get()==1:
                 cb2.deselect()
@@ -45,32 +44,8 @@ class firstWindow(object):
             app = predictionScreen(prediction_screen)
             hide();
 
-
-
-
-
-
-
-
-
         prediction =Button(win, text ="PREDICT", command = Prediction_window,height =3,width =10,bg='green',font=("Courier"),fg='white').place(x=400,y=650)
         mainexit =Button(win, text ="EXIT", command = exit,bg='orange',font=("Courier"),fg='white',height = 3, width = 10).place(x=800,y=650)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class predictionScreen:
     def __init__(self,predictionmaster):
@@ -85,24 +60,7 @@ class predictionScreen:
         text =Label(predictionmaster, text="BF494 Reliability Prediction",bd=1,bg='blue',fg = 'white',font=("Courier", 20),height=1).pack(fill=X)
         back =Button(predictionmaster, text ="<<", command = onCloseOtherFrame,bg='black',font=("Courier"),fg='white',height = 1, width = 1).place(x=0,y=0)
 
-
-
-
         vce_max,vce_min,vbe_max,vbe_min,temp,rul=Predict_BF494.predict_rul()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         figvbe = Figure(figsize=(6,4), dpi=75)
         axvbe = figvbe.add_subplot(111)
@@ -112,13 +70,10 @@ class predictionScreen:
         axvbe.set_xlim(0,10)
         t = np.linspace(0, 10, 1000, endpoint=True)
         axvbe.grid()
-        axvbe.plot(t, signal.square(2 * np.pi * 1000 * t)+5)
+
         graphvbe = FigureCanvasTkAgg(figvbe, master=predictionmaster)
         graphvbe.get_tk_widget().place(x=850,y=50)
         text =Label(predictionmaster, text="Emitter-Base Voltage",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=1000,y=370)
-
-
-
 
         figvce = Figure(figsize=(6,4), dpi=75)
         axvce = figvce.add_subplot(111)
@@ -128,11 +83,10 @@ class predictionScreen:
         axvce.set_ylabel("Y axis")
         t = np.linspace(0, 10, 1000, endpoint=True)
         axvce.grid()
-        axvce.plot(t, 5*signal.square(2 * np.pi * 1000 * t)+5)
+        
         graphvce = FigureCanvasTkAgg(figvce, master=predictionmaster)
         graphvce.get_tk_widget().place(x=850,y=410)
         text =Label(predictionmaster, text="Collector-Emitter Voltage",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=980,y=730)
-        rul=50;
         update=round(.4*rul)+1
 
         image=Image.open("meter.jpg")
@@ -141,24 +95,20 @@ class predictionScreen:
         label.image = photo
         label.place(x=100, y=50)
 
-
         meter_image=['meter_0.jpg','meter_1.jpg','meter_2.jpg','meter_3.jpg','meter_4.jpg','meter_5.jpg','meter_6.jpg','meter_7.jpg','meter_8.jpg','meter_9.jpg','meter_10.jpg','meter_11.jpg','meter_12.jpg',
         'meter_13.jpg','meter_14.jpg','meter_15.jpg','meter_16.jpg','meter_17.jpg','meter_18.jpg','meter_19.jpg','meter_20.jpg','meter_21.jpg','meter_22.jpg','meter_23.jpg','meter_24.jpg','meter_25.jpg',"meter_26.jpg",
         "meter_27.jpg","meter_28.jpg","meter_29.jpg","meter_30.jpg","meter_31.jpg","meter_32.jpg","meter_33.jpg","meter_34.jpg","meter_35.jpg","meter_36.jpg","meter_37.jpg","meter_38.jpg","meter_39.jpg","meter_40.jpg",]
 
-
-
         text =Label(predictionmaster, text="Measuring transistor parameters",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=370)
-
-        text =Label(predictionmaster, text="Collect-Emitter Voltage:",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=400)
+        text =Label(predictionmaster, text="Collect-Emitter Voltage(Vpp):",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=400)
         text_vce =Label(predictionmaster, text="0v",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor)
         text_vce.place(x=300,y=400)
 
-        text =Label(predictionmaster, text="Emitter-Base Voltage:",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=430)
+        text =Label(predictionmaster, text="Emitter-Base Voltage(Vpp):",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=430)
         text_vbe =Label(predictionmaster, text="0v",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor)
         text_vbe.place(x=300,y=430)
 
-        text =Label(predictionmaster, text="Ambient Temperature:",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=460)
+        text =Label(predictionmaster, text="Ambient Temperature(degree Celsius):",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=460)
         text_temp =Label(predictionmaster, text="0c",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor)
         text_temp.place(x=300,y=460)
 
@@ -187,20 +137,13 @@ class predictionScreen:
         progressbar["value"]=currentValue
         progressbar["maximum"]=maxValue
 
-
-
-
-
-
-
         if currentValue==maxValue:
-            text_vce.configure(text=str(vce)+"v")
-            text_vbe.configure(text=str(vbe)+"v")
+            text_vce.configure(text=str(vce_max)+"v")
+            text_vbe.configure(text=str(vbe_max)+"v")
             text_temp.configure(text=str(temp)+"c")
-
-
-
-
+            axvbe.plot(t,vbe_max*signal.square(2 * np.pi * 1000 * t)+(vbe_max+vbe_min))
+            axvce.plot(t, vce_max*signal.square(2 * np.pi * 1000 * t)+(vce_min))
+            
             currentValuednn=0
             maxValuednn=100
             def progressdnn(currentValuednn):
@@ -213,7 +156,6 @@ class predictionScreen:
             progressbardnn["value"]=currentValuednn
             progressbardnn["maximum"]=maxValuednn
 
-
             if currentValuednn==maxValuednn:
                 text_rul.configure(text=str(rul)+"%")
                 for i in range(0,update):
@@ -223,20 +165,6 @@ class predictionScreen:
                     label.configure(image=indication)
                     predictionmaster.update()
                     time.sleep(.05)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     win =Tk()
