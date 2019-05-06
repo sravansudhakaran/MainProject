@@ -70,7 +70,7 @@ def predict_rul():
 	no_samples = 10
 	print("[+] Loading trained model ...")
 	time.sleep(1)
-	model = load_model('BF494.hdf5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
+	model = load_model('BF494_2.hdf5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")
 	rul = [0,0,0,0,0,0,0,0,0,0]
 	[vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max] = get_params()
@@ -82,7 +82,7 @@ def predict_rul():
 		X = np.array([samples[i]])
 		Y = model.predict(X)
 		rul[i] = Y.tolist()[0][0]
-		rul[i] = rul[i] * (250000000)
+		rul[i] = rul[i] * (30000000)
 	rul_avg = 0.0
 	count = 0
 	for i in range(0,no_samples):
