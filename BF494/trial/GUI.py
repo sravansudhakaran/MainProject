@@ -13,28 +13,37 @@ import Predict_BF494
 class firstWindow(object):
     def __init__(self, parent):
         win = parent
+        maincolor='#CFD8DC'
+        win.configure(bg=maincolor)
         win.title("Reliability Test")
         win.attributes('-fullscreen', True)
         text =Label(win, text="Reliability Prediction",bd=1,bg='blue',fg = 'white',font=("Courier", 50),height=2).pack(fill=X)
-        soft_text="vuysB uwvyekfuV WVU TWEFAKYWV UVWKUAEYFKS YTWTYEVUY YTWEfjvf YWEFAEF LIAGI VYTFEWF ,F87Y5TA VFA NVIYGAFYB "
+        soft_text="►   Predicts the remaining useful life of a BF494 transistor"
+        soft_text1="►   Remaining useful life is predicted as the percentage lifetime remaining"
+        soft_text2="►   Vce,Vbe and Ambient temperature is measured Other parameters are programatically"
+        soft_text3="►   calculated The Deep Neural Network model has 0.08 RMSE"
+        soft_text4="►   Astable Multivibrator is used to generate the drive signal"
+        soft_text5="►   Arduino samples the analog values and converts to digital values"
+        soft_text6="►   Raspberry Pi reads the samples using serial port"
         soft =Label(win, text=soft_text,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=200)
-        componentsDescription = StringVar()
-        componentstext =Label(win,bd=1,textvariable=componentsDescription,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=400)
+        soft1 =Label(win, text=soft_text1,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=220)
+        soft2 =Label(win, text=soft_text2,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=240)
+        soft3 =Label(win, text=soft_text3,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=260)
+        soft4 =Label(win, text=soft_text4,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=280)
+        soft5 =Label(win, text=soft_text5,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=300)
+        soft6 =Label(win, text=soft_text6,bd=1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=320)
+        hard_text="■   Click the 'Predict' button to run the model"
+        hard_text1="■   Click the 'Exit' button to close the program"
+        componentstext =Label(win,bd=1,text=hard_text,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=550)
+        componentstext1 =Label(win,bd=1,text=hard_text1,fg = 'black',font=("Helvetica", 10,"bold"),height=1).place(x=20,y=570)
+        imagemain=Image.open("screencircuit1.png")
+        photomain = ImageTk.PhotoImage(imagemain)
+        labelmain = Label(win,image=photomain,height=400,width=600,bg=maincolor)
+        labelmain.image = photomain
+        labelmain.place(x=700, y=170)
 
-        def componentselected():
-            if var1.get()==1:
-                cb2.deselect()
-                componentsDescription.set("biUZUbvlBVuBS GASUZFsdIF H fSFKBWUfyuv  BEFIasicyjtvf gvuyVUI vyvubf kuwebfiabf vygYWEFI YGEYFG WGEFIULHF WYEF")
-            if var2.get()==1:
-                cb1.deselect()
-                componentsDescription.set(" VDB  YBYBSYAY CYTF IYWf g ft  fefg  TF F UYWEY Fg uyuy wfei")
 
-        var1=IntVar()
-        cb1 =Checkbutton(win, text="BF494",variable=var1,command=componentselected)
-        cb1.place(x=20,y=300)
-        var2=IntVar()
-        cb2 =Checkbutton(win, text="IGBT",variable=var2,command=componentselected)
-        cb2.place(x=200,y=300)
+
         def exit():
             win.destroy()
         def hide():
@@ -62,30 +71,38 @@ class predictionScreen:
 
         vce_max,vce_min,vbe_max,vbe_min,temp,rul=Predict_BF494.predict_rul()
 
+
+
         figvbe = Figure(figsize=(6,4), dpi=75)
         axvbe = figvbe.add_subplot(111)
-        axvbe.set_xlabel("X axis")
-        axvbe.set_ylabel("Y axis")
-        axvbe.set_ylim(0,14)
+        axvbe.set_xlabel("Frequency")
+        axvbe.set_ylabel("Voltage")
+        axvbe.set_ylim(0,5)
         axvbe.set_xlim(0,10)
         t = np.linspace(0, 10, 1000, endpoint=True)
         axvbe.grid()
 
         graphvbe = FigureCanvasTkAgg(figvbe, master=predictionmaster)
         graphvbe.get_tk_widget().place(x=850,y=50)
-        text =Label(predictionmaster, text="Emitter-Base Voltage",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=1000,y=370)
 
         figvce = Figure(figsize=(6,4), dpi=75)
         axvce = figvce.add_subplot(111)
-        axvce.set_xlabel("X axis")
-        axvce.set_ylim(0,14)
+        axvce.set_xlabel("Frequency")
+        axvce.set_ylim(0,15)
         axvce.set_xlim(0,10)
-        axvce.set_ylabel("Y axis")
+        axvce.set_ylabel("Voltage")
         t = np.linspace(0, 10, 1000, endpoint=True)
         axvce.grid()
-        
+
         graphvce = FigureCanvasTkAgg(figvce, master=predictionmaster)
         graphvce.get_tk_widget().place(x=850,y=410)
+
+
+
+
+        text =Label(predictionmaster, text="Emitter-Base Voltage",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=1000,y=370)
+
+
         text =Label(predictionmaster, text="Collector-Emitter Voltage",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=980,y=730)
         update=round(.4*rul)+1
 
@@ -108,14 +125,14 @@ class predictionScreen:
         text_vbe =Label(predictionmaster, text="0v",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor)
         text_vbe.place(x=300,y=430)
 
-        text =Label(predictionmaster, text="Ambient Temperature(degree Celsius):",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=460)
-        text_temp =Label(predictionmaster, text="0c",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor)
+        text =Label(predictionmaster, text="Ambient Temperature(°C):",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=460)
+        text_temp =Label(predictionmaster, text="0°C",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor)
         text_temp.place(x=300,y=460)
 
         text =Label(predictionmaster, text="Running DNN Model:",bd=1,fg = 'black',font=("Courier", 10),height=1,bg=bgcolor).place(x=20,y=490)
 
 
-        text =Label(predictionmaster, text="Remaining Useful Life:",bd=1,fg = 'black',font=("Courier", 15),height=1,bg=bgcolor).place(x=160,y=650)
+        text =Label(predictionmaster, text="Remaining Useful Life:",bd=1,fg = 'black',font=("Helvetica", 15,"bold"),height=1,bg=bgcolor).place(x=160,y=650)
         text_rul =Label(predictionmaster, text=" 0%",bd=1,fg = 'black',font=("Courier", 15),height=1,bg=bgcolor)
         text_rul.place(x=430,y=650)
 
@@ -141,9 +158,37 @@ class predictionScreen:
             text_vce.configure(text=str(vce_max)+"v")
             text_vbe.configure(text=str(vbe_max)+"v")
             text_temp.configure(text=str(temp)+"c")
-            axvbe.plot(t,vbe_max*signal.square(2 * np.pi * 1000 * t)+(vbe_max+vbe_min))
-            axvce.plot(t, vce_max*signal.square(2 * np.pi * 1000 * t)+(vce_min))
-            
+
+
+
+            figvbe = Figure(figsize=(6,4), dpi=75)
+            axvbe = figvbe.add_subplot(111)
+            axvbe.set_xlabel("Frequency")
+            axvbe.set_ylabel("Voltage")
+            axvbe.set_ylim(0,5)
+            axvbe.set_xlim(0,10)
+            t = np.linspace(0, 10, 1000, endpoint=True)
+            axvbe.grid()
+            axvbe.plot(t,vbe_max*signal.square(2 * np.pi * 1000 * t))
+            graphvbe = FigureCanvasTkAgg(figvbe, master=predictionmaster)
+            graphvbe.get_tk_widget().place(x=850,y=50)
+
+            figvce = Figure(figsize=(6,4), dpi=75)
+            axvce = figvce.add_subplot(111)
+            axvce.set_xlabel("Frequency")
+            axvce.set_ylim(0,15)
+            axvce.set_xlim(0,10)
+            axvce.set_ylabel("Voltage")
+            t = np.linspace(0, 10, 1000, endpoint=True)
+            axvce.grid()
+            axvce.plot(t, vce_max*signal.square(2 * np.pi * 1000 * t))
+            graphvce = FigureCanvasTkAgg(figvce, master=predictionmaster)
+            graphvce.get_tk_widget().place(x=850,y=410)
+
+
+
+
+
             currentValuednn=0
             maxValuednn=100
             def progressdnn(currentValuednn):
