@@ -30,9 +30,11 @@ def get_params():
 	rc = 100.0
 	rb = 100.0
 	thermal_res = 420.0
-
+	old = False
 	ic = [0,0,0,0,0,0,0,0,0,0]				#variables
 	ib = [0,0,0,0,0,0,0,0,0,0]
+	if (max(vbe) > 1.09):
+		old = True
 	beta = [0,0,0,0,0,0,0,0,0,0]
 	alpha = [0,0,0,0,0,0,0,0,0,0]
 	junction_temp = [0,0,0,0,0,0,0,0,0,0]
@@ -59,7 +61,7 @@ def get_params():
 		junction_temp[i] = junction_temp[i] / 92.6841436918525
 	print('[+] All Parameters Normalised...')
 
-	sensor_values = [vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max]
+	sensor_values = [vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max,old]
 	# print('[+] Additional Parameters ... \n',sensor_values)
 	return sensor_values
 
@@ -73,7 +75,7 @@ def predict_rul():
 	model = load_model('BF494_2.hdf5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")
 	rul = [0,0,0,0,0,0,0,0,0,0]
-	[vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max] = get_params()
+	[vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max,old] = get_params()
 	#print([vce,vbe,ic,ib,beta,alpha,ambient_temp,junction_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max])
 	samples = []
 	for i in range(0,no_samples):
@@ -95,6 +97,6 @@ def predict_rul():
 	if count != 0:
 		rul_avg = rul_avg / count
 	print(rul,rul_avg)
+	if (old):
+		rul_avg = 0.2
 	return (vce_max,vce_min,vbe_max,vbe_min,temp_max,rul_avg*100)
-
-predict_rul()
