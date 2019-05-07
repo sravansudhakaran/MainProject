@@ -40,7 +40,7 @@ class firstWindow(object):
         photomain = ImageTk.PhotoImage(imagemain)
         labelmain = Label(win,image=photomain,height=400,width=600,bg=maincolor)
         labelmain.image = photomain
-        labelmain.place(x=700, y=170)
+        labelmain.place(x=600, y=170)
 
 
 
