@@ -23,7 +23,7 @@ Serial.print(DHT.temperature);
 Serial.print(",");
 Serial.print(float(vbe_val)*(5.0/1024.0));
 Serial.print(",");
-Serial.println(float(vce_val)*(5.0/1024.0)*2.4);
+Serial.println(float(vce_val)*(5.0/1024.0)*3.2);
 
 
 delay(100);
