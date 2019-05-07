@@ -16,7 +16,7 @@ def get_data():
 			if(len(temp_array) < no_samples):
 				temp_array.append(float(temp))
 			if(len(vbe_array) < no_samples):
-				if(float(vbe) > 0.7):
+				if(float(vbe) > 0.9):
 					vbe_array.append(float(vbe))
 			if(len(vce_array) < no_samples):
 				if(float(vce) < 2.0):
