@@ -33,7 +33,7 @@ def root_mean_squared_error(y_true, y_pred):
 def predict_rul():
 	no_samples = 20
 	print("[+] Loading trained model ...")
-	model = load_model('BF494_new.hdf5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
+	model = load_model('BF494_1.h5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")
 	rul = []
 	[vbe,vce,ambient_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max] = get_params()
@@ -44,7 +44,6 @@ def predict_rul():
 		X = np.array([samples[i]])
 		Y = model.predict(X)
 		rul.append(Y.tolist()[0][0])
-		rul[i] = rul[i] * (10000000000)
 	rul_avg = 0.0
 	count = 0
 	for i in range(0,no_samples):
