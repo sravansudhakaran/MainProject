@@ -11,7 +11,7 @@ samples = 50000
 
 vbe_step = (1.70-1.00)/samples
 vce_step = (0.99-0.15)/samples
-rul_step = (1-100)/samples
+#rul_step = (1-100)/samples
 vbe_start = 1.00
 vce_start = 0.15
 rul_start = 100

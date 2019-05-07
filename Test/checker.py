@@ -9,8 +9,8 @@ import math
 
 def get_params():
 	
-	vbe = [1.58,1.60]
-	vce = [0.79,0.80]
+	vbe = [1.28,1.30]
+	vce = [0.52,0.54]
 	ambient_temp = [323,323]
 	
 	print('[+] Vbe = ',vbe)
