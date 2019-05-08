@@ -1,19 +1,19 @@
 import csv
 import math
 
-infile  = 'BF494.csv'
-outfile = 'BF494_new.csv'
+infile  = 'BF494_new.csv'
+outfile = 'BF494_new_2.csv'
 
-# vbe -> 1.00 to 1.70
-# vce -> 0.15 to 0.99
+vbe_min,vbe_max = 1.04,1.80 # vbe -> 1.03 to 1.80
+vce_min,vce_max = 0.20,1.33 # vce -> 0.19 to 1.33
 # rul -> 100 to 1
 samples = 50000
 
-vbe_step = (1.70-1.00)/samples
-vce_step = (0.99-0.15)/samples
+vbe_step = (vbe_max-vbe_min)/samples
+vce_step = (vce_max-vce_min)/samples
 rul_step = (1-100)/samples
-vbe_start = 1.00
-vce_start = 0.15
+vbe_start = vbe_min
+vce_start = vce_min
 rul_start = 100
 
 with open(infile,'r') as csvinput:
