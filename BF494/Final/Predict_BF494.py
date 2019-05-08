@@ -56,4 +56,4 @@ def predict_rul():
 	print(rul,rul_avg)
 	return (vce_max,vce_min,vbe_max,vbe_min,temp_max,rul_avg)
 
-predict_rul()
+#predict_rul()
