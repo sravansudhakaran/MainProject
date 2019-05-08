@@ -2,14 +2,14 @@ import time
 import serial
 
 def get_data():
-	no_samples = 20
+	no_samples = 10
 	vce_array = []
 	vbe_array = []
 	temp_array = []
 	ser = serial.Serial('/dev/ttyACM0', 9600)         			# enable the serial port
-	for i in range(0,100):                                                   # execute the loop forever
+	for i in range(0,30):                                                   # execute the loop forever
 		incoming_stream = ser.readline()                                # read the serial data sent by the UNO
-		print (incoming_stream)                                         # print the serial data sent by UNO
+		#print (incoming_stream)                                         # print the serial data sent by UNO
 		try:
 			values = incoming_stream.decode("utf-8")		# decode bytes to string
 			(temp,vbe,vce) = values.split(',')

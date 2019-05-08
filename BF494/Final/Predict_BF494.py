@@ -31,7 +31,7 @@ def root_mean_squared_error(y_true, y_pred):
 	return backend.sqrt(backend.mean(backend.square(y_pred - y_true)))
 
 def predict_rul():
-	no_samples = 20
+	no_samples = 10
 	print("[+] Loading trained model ...")
 	model = load_model('BF494_1.h5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")
