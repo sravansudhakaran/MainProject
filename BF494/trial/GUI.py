@@ -20,8 +20,8 @@ class firstWindow(object):
         text =Label(win, text="Reliability Prediction",bd=1,bg='blue',fg = 'white',font=("Courier", 50),height=2).pack(fill=X)
         soft_text="►   Predicts the remaining useful life of a BF494 transistor"
         soft_text1="►   Remaining useful life is predicted as the percentage lifetime remaining"
-        soft_text2="►   Vce,Vbe and Ambient temperature is measured Other parameters are programatically"
-        soft_text3="►   calculated The Deep Neural Network model has 0.08 RMSE"
+        soft_text2="►   Vce,Vbe and Ambient temperature is measured"
+        soft_text3="►   The Deep Neural Network model is implemented in Raspberry pi"
         soft_text4="►   Astable Multivibrator is used to generate the drive signal"
         soft_text5="►   Arduino samples the analog values and converts to digital values"
         soft_text6="►   Raspberry Pi reads the samples using serial port"
