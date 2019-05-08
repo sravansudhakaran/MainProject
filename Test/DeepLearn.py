@@ -36,5 +36,5 @@ model.compile(loss='mean_squared_error', optimizer='adam',metrics=['mean_absolut
 model.fit(X, Y, epochs=10, batch_size=10, verbose=1)
 scores = model.evaluate(X, Y, verbose=1)
 print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
-model.save("BF494_1.h5") 
+model.save("BF494_2.h5") 
 print("Saved model to disk")
