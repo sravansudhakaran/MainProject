@@ -8,10 +8,10 @@ import os
 import math
 
 def get_params():
-	
-	vbe = [1.28,1.30]
-	vce = [0.52,0.54]
-	ambient_temp = [323,323]
+
+	vbe = [1.04]
+	vce = [0.2]
+	ambient_temp = [33,33]
 	
 	print('[+] Vbe = ',vbe)
 	print('[+] Vce = ', vce)
@@ -30,7 +30,7 @@ def root_mean_squared_error(y_true, y_pred):
 	return backend.sqrt(backend.mean(backend.square(y_pred - y_true)))
 
 def predict_rul():
-	no_samples = 2
+	no_samples = 1
 	print("[+] Loading trained model ...")
 	model = load_model('BF494_1.h5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")

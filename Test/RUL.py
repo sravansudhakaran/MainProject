@@ -4,8 +4,8 @@ import math
 infile  = 'BF494_new.csv'
 outfile = 'BF494_new_2.csv'
 
-vbe_min,vbe_max = 1.04,1.80 # vbe -> 1.03 to 1.80
-vce_min,vce_max = 0.20,1.33 # vce -> 0.19 to 1.33
+vbe_min,vbe_max = 1.04,1.40 # vbe -> 1.03 to 1.80
+vce_min,vce_max = 0.20,0.5 # vce -> 0.19 to 1.33
 # rul -> 100 to 1
 samples = 50000
 
