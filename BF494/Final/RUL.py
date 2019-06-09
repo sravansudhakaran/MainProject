@@ -4,16 +4,21 @@ import math
 infile  = 'BF494_new.csv'
 outfile = 'BF494_new_2.csv'
 
-# vbe -> 1.00 to 1.30
-# vce -> 0.15 to 0.40
+# vbe -> 0.90 to 1.15
+# vce -> 0.15 to 1.0
 # rul -> 100 to 1
+vbe_min = 0.90
+vbe_max = 1.15
+vce_min = 0.15
+vce_max = 1.0
+
 samples = 50000
 
-vbe_step = (1.30-1.00)/samples
-vce_step = (0.40-0.15)/samples
+vbe_step = (vbe_max-vbe_min)/samples
+vce_step = (vce_max-vce_min)/samples
 rul_step = (1-100)/samples
-vbe_start = 1.00
-vce_start = 0.15
+vbe_start = vbe_min
+vce_start = vce_min
 rul_start = 100
 
 with open(infile,'r') as csvinput:
