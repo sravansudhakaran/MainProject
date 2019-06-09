@@ -5,12 +5,12 @@ infile  = 'BF494_new.csv'
 outfile = 'BF494_new_2.csv'
 
 # vbe -> 0.90 to 1.15
-# vce -> 0.15 to 1.0
+# vce -> 0.15 to 0.60
 # rul -> 100 to 1
 vbe_min = 0.90
 vbe_max = 1.15
 vce_min = 0.15
-vce_max = 1.0
+vce_max = 0.60
 
 samples = 50000
 

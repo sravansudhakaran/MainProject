@@ -22,10 +22,10 @@ def root_mean_squared_error(y_true, y_pred):
 	return backend.sqrt(backend.mean(backend.square(y_pred - y_true)))
 
 model = Sequential()
-model.add(Dense(5, input_dim=2, kernel_initializer='normal', activation='relu'))
-model.add(Dense(4, kernel_initializer='normal', activation='relu'))
+model.add(Dense(10, input_dim=2, kernel_initializer='normal', activation='relu'))
+model.add(Dense(8, kernel_initializer='normal', activation='relu'))
+model.add(Dense(6, kernel_initializer='normal', activation='relu'))
 model.add(Dense(3, kernel_initializer='normal', activation='relu'))
-model.add(Dense(2, kernel_initializer='normal', activation='relu'))
 model.add(Dense(1, kernel_initializer='normal',activation='linear'))
 model.compile(loss=root_mean_squared_error, optimizer='adamax',metrics=['mean_absolute_error'])
 model.fit(X, Y, epochs=10, batch_size=10, verbose=1)
