@@ -18,10 +18,10 @@ def get_params():
 	print('[+] Vce = ', vce)
 	print('[+] Ambient Temperature = ',ambient_temp)
 	
-	vce_max = 13.0
+	vce_max = max(vce)
 	vce_min = min(vce)
 	vbe_max = max(vbe)
-	vbe_min = 0
+	vbe_min = min(vbe)
 	temp_max = max(ambient_temp)
 	
 	sensor_values = [vbe,vce,ambient_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max]
@@ -33,7 +33,7 @@ def root_mean_squared_error(y_true, y_pred):
 def predict_rul():
 	no_samples = 10
 	print("[+] Loading trained model ...")
-	model = load_model('BF494_1.h5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
+	model = load_model('BF494_2.h5', custom_objects ={'root_mean_squared_error':root_mean_squared_error})
 	print("[+] Predicting RUL ...")
 	rul = []
 	[vbe,vce,ambient_temp,vce_max,vce_min,vbe_max,vbe_min,temp_max] = get_params()
@@ -54,6 +54,8 @@ def predict_rul():
 	if count != 0:
 		rul_avg = rul_avg / count
 	print(rul,rul_avg)
+	if (rul_avg > 100.0):
+		rul_avg=95.0
 	return (vce_max,vce_min,vbe_max,vbe_min,temp_max,rul_avg)
 
 #predict_rul()
